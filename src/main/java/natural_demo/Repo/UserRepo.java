@@ -1,4 +1,4 @@
-package com.example.naturalapp.Repo;
+package natural_demo.Repo;
 
 import natural_demo.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
