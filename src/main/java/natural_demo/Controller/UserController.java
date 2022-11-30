@@ -48,7 +48,7 @@ public class UserController {
 
     @PostMapping("/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
-        userService.addRoleToUser(form.getUsername(), form.getRoleName());
+        userService.addRoleToUser(form.getNome(), form.getRoleNome());
         return ResponseEntity.ok().build();
     }
 
@@ -62,14 +62,14 @@ public class UserController {
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
-                String username = decodedJWT.getSubject();
-                User user = userService.getUser(username);
+                String nome = decodedJWT.getSubject();
+                User user = userService.getUser(nome);
 
                 String access_token = JWT.create()
-                        .withSubject(user.getUsername())
+                        .withSubject(user.getNome())
                         .withExpiresAt(new Date(System.currentTimeMillis()+ 10 * 60 * 1000))//10 min
                         .withIssuer(request.getRequestURI().toString())
-                        .withClaim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
+                        .withClaim("roles", user.getRoles().stream().map(Role::getNome).collect(Collectors.toList()))
                         .sign(algorithm);
 
 
@@ -95,6 +95,6 @@ public class UserController {
 }
 @Data
 class RoleToUserForm{
-    private String username;
-    private String roleName;
+    private String nome;
+    private String roleNome;
 }

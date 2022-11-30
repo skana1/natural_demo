@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Table(name="sys_roles")
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class Role {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idRole;
-    private String name;
+    @Column(name = "idrole")
+    private Long idrole;
+    @Column(name = "nome")
+    private String nome;
 }

@@ -27,15 +27,14 @@ public class NaturalDemoApplication {
 	@Bean
 		CommandLineRunner run(UserService userService){
 		return args -> {
-
-			userService.saveRole(new Role(null,"adm"));
-			userService.saveRole(new Role(null,"manager"));
-
-			userService.saveUser(new User(null,"Ester","Skana","Oscar","hello","skana123", new ArrayList<>()));
-			userService.saveUser(new User(null,"Oscar","White","cat","haj","1234444", new ArrayList<>()));
-
-			userService.addRoleToUser("Skana","adm");
-			userService.addRoleToUser("White","manager");
+//			userService.saveRole(new Role(null,"amministratore"));
+//			//userService.saveRole(new Role(null,"manager"));
+//
+//			userService.saveUser(new User(null,"hello","Oscar","hello","skana123", new ArrayList<>()));
+//			//userService.saveUser(new User(null,"White","cat","haj","1234444", new ArrayList<>()));
+//
+//			userService.addRoleToUser("hello","amministratore");
+			//userService.addRoleToUser("White","manager");
 		};
 		}
 }
