@@ -13,14 +13,12 @@ import natural_demo.Service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -51,7 +49,6 @@ public class UserController {
         userService.addRoleToUser(form.getNome(), form.getRoleNome());
         return ResponseEntity.ok().build();
     }
-
 
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -93,6 +90,7 @@ public class UserController {
         }
     }
 }
+
 @Data
 class RoleToUserForm{
     private String nome;

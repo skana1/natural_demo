@@ -2,7 +2,6 @@ package natural_demo.Service;
 
 import natural_demo.Models.Role;
 import natural_demo.Models.User;
-
 import java.util.List;
 
 public interface UserService {

@@ -1,7 +1,5 @@
 package natural_demo;
 
-import natural_demo.Models.Role;
-import natural_demo.Models.User;
 import natural_demo.Service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.ArrayList;
-
+@EnableWebMvc
 @SpringBootApplication
 public class NaturalDemoApplication {
 
