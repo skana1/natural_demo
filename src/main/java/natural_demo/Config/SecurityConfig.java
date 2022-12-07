@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -19,7 +20,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-@Configuration @EnableWebSecurity @RequiredArgsConstructor
+
+
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -29,17 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/swagger-ui/",
-                "/swagger-ui",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring()
+//                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html");
+//                .antMatchers("/v2/api-docs",
+//                "/swagger-ui/",
+//                "/swagger-ui",
+//                "/configuration/ui",
+//                "/swagger-resources/**",
+//                "/configuration/security",
+//                "/swagger-ui.html",
+//                "/webjars/**")
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,18 +57,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().antMatchers("/controller/users", "/controller/token/refresh/**").permitAll();
 
         http.authorizeHttpRequests().antMatchers("/controller/login", "/controller/token/refresh/**").permitAll();
-        http.authorizeHttpRequests().antMatchers(String.valueOf(POST),"/controller/user/**").permitAll();
+        http.authorizeHttpRequests().antMatchers(String.valueOf(POST), "/controller/user/**").permitAll();
         //http.authorizeHttpRequests().antMatchers(String.valueOf(POST),"/controller/user/**").hasAnyAuthority("adm");
-        http.authorizeHttpRequests().antMatchers(String.valueOf(POST),"/controller/user/save/**").permitAll();
+        http.authorizeHttpRequests().antMatchers(String.valueOf(POST), "/controller/user/save/**").permitAll();
+
         http
                 .authorizeHttpRequests()
-                .antMatchers(
-                        "/v2/api-docs",
-                        "/swagger-resources/**",
-                        "/swagger-ui.html",
-                        "/webjars/**" ,
-                        /*Probably not needed*/ "/swagger.json")
-                .permitAll();
+                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html").permitAll();
+//                .antMatchers(
+//                        "/v2/api-docs",
+//                        "/swagger-resources/**",
+//                        "/swagger-ui.html",
+//                        "/webjars/**",
+//                        /*Probably not needed*/ "/swagger.json")
+
 
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
