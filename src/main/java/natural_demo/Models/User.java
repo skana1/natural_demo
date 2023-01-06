@@ -9,22 +9,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
-
 @Table(name="sys_users")
+
 public class User implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "iduser")
+    @Column(name = "iduser",updatable = false, nullable = false)
     private Long iduser;
     @Column(name = "nome")
     private String nome;
     @Column(name = "password")
     private String password;
-    @Column(name = "dataBasedPremissionInfo")
+    @Column(name = "data_based_premission_info")
     private String dataBasedPremissionInfo;
-    @Column(name = "displayName")
+    @Column(name = "display_name")
     private String displayName;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
@@ -59,4 +58,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

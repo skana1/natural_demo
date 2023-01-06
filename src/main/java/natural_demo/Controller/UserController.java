@@ -11,6 +11,10 @@ import natural_demo.Models.Role;
 import natural_demo.Models.User;
 import natural_demo.Service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +30,33 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController @RequiredArgsConstructor @RequestMapping("/controller")
 public class UserController {
     private final UserService userService;
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers(){
-        return ResponseEntity.ok().body(userService.getUsers());
-    }
+    private final AuthenticationManager authenticationManager;
+//    @PostMapping("/login")
+//    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String nome = request.getParameter("nome");
+//        String password = request.getParameter("password");
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(nome, password);
+//        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+//        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+//
+//        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+//        String access_token = JWT.create()
+//                .withSubject(user.getUsername())
+//                .withExpiresAt(new Date(System.currentTimeMillis()+ 10 * 60 * 1000))//10 min
+//                .withIssuer(request.getRequestURL().toString())
+//                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+//                .sign(algorithm);
+//
+//        Map<String,String> tokens = new HashMap<>();
+//        tokens.put("access_token",access_token);
+//        response.setContentType(APPLICATION_JSON_VALUE);
+//        new ObjectMapper().writeValue(response.getOutputStream(),tokens);
+//    }
+//
+//    @GetMapping("/users")
+//    public ResponseEntity<List<User>> getUsers(){
+//        return ResponseEntity.ok().body(userService.getUsers());
+//    }
 
     @PostMapping("/user/save")
     public ResponseEntity<User> saveUser(@RequestBody User user){

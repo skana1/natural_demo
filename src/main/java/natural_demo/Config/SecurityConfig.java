@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import static javax.swing.text.html.FormSubmitEvent.MethodType.GET;
 import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -38,17 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/controller/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeHttpRequests().antMatchers("/controller/users", "/controller/token/refresh/**").permitAll();
-
         http.authorizeHttpRequests().antMatchers("/controller/login", "/controller/token/refresh/**").permitAll();
-        http.authorizeHttpRequests().antMatchers(String.valueOf(POST), "/controller/user/**").permitAll();
+        http.authorizeHttpRequests().antMatchers("/controller/users").permitAll();
+        http.authorizeHttpRequests().antMatchers( "/controller/token/refresh/**").permitAll();
+        http.authorizeHttpRequests().antMatchers(String.valueOf(GET), "/controller/user/**").permitAll();
         //http.authorizeHttpRequests().antMatchers(String.valueOf(POST),"/controller/user/**").hasAnyAuthority("adm");
         http.authorizeHttpRequests().antMatchers(String.valueOf(POST), "/controller/user/save/**").permitAll();
-
-        http
-                .authorizeHttpRequests()
-                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html").permitAll();
-
+        http.authorizeHttpRequests().antMatchers("/v2/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html").permitAll();
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

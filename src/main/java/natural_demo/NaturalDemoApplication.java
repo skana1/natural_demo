@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @EnableWebMvc
 @SpringBootApplication
-public class NaturalDemoApplication {
+public class  NaturalDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NaturalDemoApplication.class, args);
@@ -33,10 +33,10 @@ public class NaturalDemoApplication {
 			//userService.saveRole(new Role(null,"amministratore"));
 			//userService.saveRole(new Role(null,"manager"));
 
-			userService.saveUser(new User(null,"Java","Oscar","hello","skana123", new ArrayList<>()));
+			//userService.saveUser(new User(null,"Eri","password","hello","skana123", new ArrayList<>()));
 			//userService.saveUser(new User(null,"White","cat","haj","1234444", new ArrayList<>()));
 
-			//userService.addRoleToUser("hello","amministratore");
+			//userService.addRoleToUser("Eri","amministratore");
 			//userService.addRoleToUser("White","manager");
 		};
 		}
